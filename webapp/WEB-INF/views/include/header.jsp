@@ -23,11 +23,11 @@
 					<ul>
 					<c:choose>
 					<c:when test='${empty sessionScope.authUser }'>
-					<li><a href="/gs25/user/loginform">로그인</a></li>
+					<li><a href="/ISMEDIA/main">로그인</a></li>
 					</c:when>
 					<c:otherwise>
-						<li>${authUser.name}님안녕하세요^^;</li>
-						<li><a href="/gs25/user/logout">로그아웃</a></li>
+						<li>${authUser.name}님 안녕하세요^^</li>
+						<li><a href="/ISMEDIA/logout">로그아웃</a></li>
 					</c:otherwise>
 				</c:choose>
 						</ul>
@@ -41,17 +41,12 @@
 						<h1 class="logo"><a href="/ISMEDIA/main">GS25</a></h1>
 						<div class="gnb" id="gnb_menu">
 							<ul>
-							<c:if test="${authUser.no==100 }">
-								<li><h2><a href="/gs25/product/Mainlist" class="on">상품</a></h2>
+								<li><h2><a href="/ISMEDIA/Cost" class="on">원가검증</a></h2>
 								</li>
-								</c:if>
-								<li><h2><a href="/gs25/custom/list" class="on">원가검증</a></h2>
+
+								<li><h2><a href="/ISMEDIA/longstock/list">장기재고</a></h2>
 								</li>
-								<li><h2><a href="/gs25/membership">SN</a></h2>
-								</li>
-								<li><h2><a href="/gs25/map/list">장기재고</a></h2>
-								</li>
-								<li><h2><a href="/gs25/companyintro">장비재료비</a></h2>
+								<li><h2><a href="/ISMEDIA/BOM">장비재료비</a></h2>
 								</ul>
 							</div>
 						</div>

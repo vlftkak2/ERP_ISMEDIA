@@ -28,10 +28,21 @@
 				<div id="log-border">
 					<form class="login-form" name="loginform" method="post"  >
 					<ul>
+					<c:choose>
+					<c:when test='${empty sessionScope.authUser }'>
 						<li><input id="id" name="id" class="form-control" type="text" value="" placeholder="사원번호"></li>
 						<li><input id="password" name="password" type="password" class="form-control" value="" placeholder="비밀번호"></li>
-					</ul>
 						<button class="btn btn-primary btn-block" type="button" id="btn_Login">로그인</button>
+					</c:when>	
+
+					<c:otherwise>
+						<li class="form-control">${authUser.name}님</li>
+						<button class="btn btn-primary btn-block" type="button" id="btn_logout"><a href="/ISMEDIA/logout">로그아웃</button>
+					</c:otherwise>				
+					</c:choose>
+
+					</ul>
+						
 					</form>
 				</div>
 		</div>
@@ -47,7 +58,6 @@
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />
 </div>
-
 
 </body>
 <script>
@@ -66,7 +76,7 @@ $(function() {
 			return false;
 			}
 		
-		var email = $("#id").val();
+		var id = $("#id").val();
 		var password = $("#password").val();	
 	
 		$.ajax({	
@@ -74,7 +84,7 @@ $(function() {
 			type: "POST",
 			data: {"id": id, "password": password},
 			dataType: "text",
-			success: function(result){	//비동기식으로 진행되어 결과와 상관 없이 submit되므로 계속 refres됨(따로 동기식으로 변경해야함)
+			success: function(result){	
 				console.log(result);
 				if(result == "false"){
 					console.log(result);
@@ -83,7 +93,8 @@ $(function() {
 				}
 				
 				 if(result == "true"){
-					location.href='/ISMEDIA/main';
+					 location.href='/ISMEDIA/main';
+					
 				} 
 			},
 			

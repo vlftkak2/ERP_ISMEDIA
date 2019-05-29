@@ -26,12 +26,22 @@
 			expression="org.springframework.stereotype.Component" />
 	</context:component-scan>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="msdataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 	    <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
 	    <property name="url" value="jdbc:sqlserver://192.168.4.10:9360;DatabaseName=ISMEDIA"/>
 	    <property name="username" value="erp_admin"/>
 	    <property name="password" value="pw:abcd1234!"/>
  	</bean>
  	
+	<!-- MyBatis SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="msdataSource" />
+		<property name="configLocation" value="classpath:mybatis/configuration.xml" />
+	</bean>
+ 	
+ 		<!-- MyBatis SqlSessionTemplate -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
 
 	</beans> 

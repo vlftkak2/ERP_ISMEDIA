@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="longstock">
+
+	<!-- 장기재고 데이터 조회 -->
+   <select id="longstockListKeyword" parameterType="map" resultType="longstockvo">
+    <![CDATA[
+Select * From 
+(Select 
+          Row_number() over(order by C.월,C.품목코드) rn,
+		  C.기준월 stdate,
+		  C.월 month,
+		  C.품목계정 itemkind,
+		  C.품목코드 itemcd,
+		  C.품목명 itemnm,
+		  C.규격 size,
+		  C.입고수량 inqty,
+		  C.출고계 sumout,
+		  C.출고 outqty,
+		  C.재고 jqty,
+		  C.품목수 coitemcd,
+		  C.품목순번 seqitemcd,
+		  C.단가 price,
+		  C.금액 amt,
+		  C.비고 remark,
+		  C.비고상세 dremark,
+		  convert(varchar(200),C.일수)+'일' overdate From 
+(Select 기준월,월,품목계정,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Case when 일수>=365 Then convert(varchar(100),일수/365)+convert(varchar(100),'년 초과') Else convert(varchar(200),비고) End 비고상세,일수 From 
+(Select 기준월,월,품목계정,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Datediff(dd,a.비교월,a.비교기준월) 일수 From 
+(select convert(date,standard_date+'01') 비교기준월,convert(date,dates+'01') 비교월,standard_date 기준월,dates 월,codenm 품목계정,itemcd 품목코드,itemnm 품목명,size 규격,toqty 입고수량,toqty2 출고계,toqty3 출고,stock 재고,itemcdcount 품목수,seq 품목순번,unitprice 단가,amt 금액,remark 비고 from Last_TemporaryData where stock not like '0%' and standard_date like #{keyword}) A ) B ) C ) D
+ where rn>=#{page_start} and rn<=#{page_end}
+     ]]>  
+   </select>
+   
+   
+ 	<!-- 장기재고 데이터 조회 -->
+   <select id="getList" parameterType="map" resultType="longstockvo">
+    <![CDATA[
+Select * From 
+(Select 
+          Row_number() over(order by C.월,C.품목코드) rn,
+		  C.기준월 stdate,
+		  C.월 month,
+		  C.품목코드 itemcd,
+		  C.품목명 itemnm,
+		  C.규격 size,
+		  C.입고수량 inqty,
+		  C.출고계 sumout,
+		  C.출고 outqty,
+		  C.재고 jqty,
+		  C.품목수 coitemcd,
+		  C.품목순번 seqitemcd,
+		  C.단가 price,
+		  C.금액 amt,
+		  C.비고 remark,
+		  C.비고상세 dremark,
+		  convert(varchar(200),C.일수)+'일' overdate From 
+(Select 기준월,월,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Case when 일수>=365 Then convert(varchar(100),일수/365)+convert(varchar(100),'년 초과') Else convert(varchar(200),비고) End 비고상세,일수 From 
+(Select 기준월,월,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Datediff(dd,a.비교월,a.비교기준월) 일수 From 
+(select convert(date,standard_date+'01') 비교기준월,convert(date,dates+'01') 비교월,standard_date 기준월,dates 월,itemcd 품목코드,itemnm 품목명,size 규격,toqty 입고수량,toqty2 출고계,toqty3 출고,stock 재고,itemcdcount 품목수,seq 품목순번,unitprice 단가,amt 금액,remark 비고 from Last_TemporaryData where stock not like '0%' and standard_date like #{keyword}) A ) B ) C ) D
+ where rn>=#{page_start} and rn<=#{page_end}
+     ]]>  
+   </select>  
+   
+	<!-- 게시물 총개수 -->
+	<select id="getTotalCount" parameterType="map" resultType="java.lang.Integer">
+	Select Count(*) From Last_TemporaryData where standard_date like #{keyword} 
+	</select>
+	
+	
+		<!-- 장기재고 데이터 조회 -->
+   <select id="Graph" parameterType="map" resultType="longstockvo">
+    <![CDATA[
+	Select standard_date stdate,codenm itemkind,sum(stock) jqty,sum(amt) amt From Last_TemporaryData where standard_date Like #{keyword} group by standard_date,codenm  
+     ]]>  
+   </select>
+
+</mapper>

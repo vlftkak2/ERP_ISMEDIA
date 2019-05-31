@@ -67,13 +67,19 @@ public class LongStockService {
 	public Map<String, Object> Graph(String keyword) {
 		
 		List<LongStockVo> Graph = longstockdao.Graph(keyword);
+		List<LongStockVo> HighGraph = longstockdao.HighGraph(keyword);
+		List<LongStockVo> RowGraph = longstockdao.RowGraph(keyword);
 		
 		Map<String, Object> longGraph = new HashMap<String, Object>();
 		longGraph.put("Graph", Graph);
+		longGraph.put("HighGraph", HighGraph);
+		longGraph.put("RowGraph", RowGraph);
+
 		longGraph.put("keyword", keyword);
 		
 		return longGraph;
 		
 	}
+	
 
 }

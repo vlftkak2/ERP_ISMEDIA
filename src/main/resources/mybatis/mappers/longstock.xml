@@ -68,11 +68,24 @@ Select * From
 	Select Count(*) From Last_TemporaryData where standard_date like #{keyword} 
 	</select>
 	
-	
-		<!-- 장기재고 데이터 조회 -->
+		<!-- 장기재고 그래프 -->
    <select id="Graph" parameterType="map" resultType="longstockvo">
     <![CDATA[
-	Select standard_date stdate,codenm itemkind,sum(stock) jqty,sum(amt) amt From Last_TemporaryData where standard_date Like #{keyword} group by standard_date,codenm  
+	Select standard_date stdate,codenm itemkind,sum(stock) jqty,sum(amt) amt From Last_TemporaryData where standard_date Like #{keyword} group by standard_date,codenm Order by amt desc  
+     ]]>  
+   </select>
+   
+   		<!-- 장기재고 상위10 -->
+   <select id="HighGraph" parameterType="map" resultType="longstockvo">
+    <![CDATA[
+	Select top 10 codenm itemkind,itemcd,itemnm,size,stock,amt From Last_TemporaryData where standard_date Like #{keyword} Order by amt desc  
+     ]]>  
+   </select>
+   
+   		<!-- 장기재고 하위10 -->
+   <select id="RowGraph" parameterType="map" resultType="longstockvo">
+    <![CDATA[
+	Select top 10 codenm itemkind,itemcd,itemnm,size,stock,amt From Last_TemporaryData where standard_date Like #{keyword} Order by amt desc  
      ]]>  
    </select>
 

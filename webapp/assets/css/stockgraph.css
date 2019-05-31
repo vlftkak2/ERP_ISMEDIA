@@ -36,7 +36,7 @@ margin-bottom:30px;
         
 #store_header{
 	margin-top:50px;
-	margin-left:310px;
+	margin-left:250px;
 }
         
 #store{margin:50px 60px;}
@@ -70,12 +70,13 @@ margin-bottom:30px;
 
 #map_container{
 
-	width:900px;
+	width:2000px;
 
 }
 
 #board{
-	margin-left:10px;
+	width:2000px;
+	float:left;
 }
 
 input[type="text"]	{
@@ -220,4 +221,13 @@ a.del	{
  div.pager  ul li a:link, 
  div.pager  ul li a:active { text-decoration: none; color:#ff8080 } 
  div.pager  ul li a:hover { text-decoration: none; color:#f00 } 
+ 
+ #ItemkindChart{
+ float:left;
+ }
+ 
+
+ #HighChart{
+  float:left;
+ }
 

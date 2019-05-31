@@ -9,10 +9,69 @@
 <meta charset="UTF-8">
 <title>isMedia</title>
 <link rel="stylesheet" type="text/css" href="/ISMEDIA/assets/css/sweetalert.css">
-<link href="/ISMEDIA/assets/css/stock.css" rel="stylesheet" type="text/css">
+<link href="/ISMEDIA/assets/css/stockgraph.css" rel="stylesheet" type="text/css">
 <link href="/ISMEDIA/assets/css/login.css" rel="stylesheet" type="text/css">  
 <script type="text/javascript" src="/ISMEDIA/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="/ISMEDIA/assets/js/sweetalert.min.js"></script> 
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<script type="text/javascript">
+google.charts.load('current', {'packages' : ['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart(){
+	
+	var data = new google.visualization.DataTable();
+
+    data.addColumn('string', '계정');
+    data.addColumn('number', '금액');
+
+    data.addRows([
+    	
+    	<c:forEach var='vo' items='${longGraph.Graph}' varStatus='status' >
+    	['${vo.itemkind}',${vo.amt}],
+    	</c:forEach>
+  ]);
+    
+    var Pieoptions = {'title' : '품목계정 통계 [원형그래프]', 'width' :850, 'height' : 500};
+    var Piechart = new google.visualization.PieChart(document.getElementById('Piechart'));
+    
+    var Baroptions = {'title' : '품목계정 통계 [막대그래프]', 'width' :850, 'height' : 500};
+    var Barchart = new google.visualization.BarChart(document.getElementById('Barchart'));
+    
+    Piechart.draw(data, Pieoptions);
+    Barchart.draw(data, Baroptions);
+}
+</script>
+
+<script type="text/javascript">
+google.charts.load('current', {'packages' : ['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart(){
+	
+	var data = new google.visualization.DataTable();
+    data.addColumn('string', '계정');
+    data.addColumn('number', '금액');
+
+    data.addRows([	
+    	<c:forEach var='vo' items='${longGraph.HighGraph}' varStatus='status' >
+    	['${vo.itemnm}',${vo.amt}],
+    	</c:forEach>
+  ]);
+    var HighPieoptions = {'title' : '상위10 통계 [원형그래프]', 'width' :850, 'height' : 500};
+    var HighPiechart = new google.visualization.PieChart(document.getElementById('HighPiechart'));
+    
+    var HighBaroptions = {'title' : '상위10 통계 [막대그래프]', 'width' :850, 'height' : 500};
+    var HighBarchart = new google.visualization.BarChart(document.getElementById('HighBarchart'));
+    
+    HighPiechart.draw(data, HighPieoptions);
+    HighBarchart.draw(data, HighBaroptions);
+}
+</script>
+
 </head>
 <body>
 <div id="container">
@@ -42,7 +101,7 @@
 					<c:if test='${not empty longGraph.Graph }'>
 					<div id="radio">
 					<form id="radio_form" >
-        			<input type="radio" id=radioTotal name="radioTxt" value="${longGraph.keyword }"  >전체조회
+        			<input type="radio" id=radioTotal name="radioTxt" value="${longGraph.keyword }"  >리스트조회
         			<input type="radio" id="radioGraph" name="radioTxt" value="${longGraph.keyword }" checked >통계조회
 					</form>
 					</div>
@@ -50,41 +109,20 @@
 
 					<div id=map_container>
 						<div id="board">
-							<table class="tbl-ex">
-								<tr>
-									<th>기준월</th>
-									<th>품목계정</th>
-									<th>재고</th>
-									<th>금액</th>
-								</tr>
-								
-								<c:forEach var='vo' items='${longGraph.Graph}' varStatus='status' >
-									<tr>
-										<td>${vo.stdate }</td>
-										<td>${vo.itemkind}</td>
-										<td><fmt:formatNumber value="${vo.jqty}" pattern="#,##0" /></td>
-										<td><fmt:formatNumber value="${vo.amt}" pattern="#,##0.00" /></td>
-									</tr>
-								</c:forEach>
-							</table>
-
-							<c:if test='${empty longGraph.Graph }'>
-								<div id="map_right">
-									<div id="map_risk">
-										<img src="/ISMEDIA/assets/images/longstock/risk.png">
-									</div>
-									<p class="map_list-right">
-										검색된 결과를 찾을 수 없습니다. <br>
-									</p>
-								</div>
-							</c:if>
+							
+							<div id="ItemkindChart">
+							<div id="Piechart"></div>
+							<div id="Barchart"></div>
+							</div>
+							
+							<div id="HighChart">
+							<div id="HighPiechart"></div>
+							<div id="HighBarchart"></div>
+							</div>
 
 						</div>
 						<div id="map"></div>
 					</div>
-
-
-
 				</div>
 			</div>
 		</div>

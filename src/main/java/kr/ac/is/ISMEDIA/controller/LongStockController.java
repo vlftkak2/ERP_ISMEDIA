@@ -1,6 +1,8 @@
 package kr.ac.is.ISMEDIA.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.ac.is.ISMEDIA.service.LongStockService;
+import kr.ac.is.ISMEDIA.vo.LongStockVo;
 
 @Controller
 @RequestMapping("/longstock")
@@ -43,6 +46,8 @@ public class LongStockController {
 		return "/Main_Page/LongGraph";
 	}
 	
+	
+		    
 	/* 전체조회 Ajax */
 	@ResponseBody
 	@RequestMapping(value = "radioTotal", method = RequestMethod.POST)
@@ -60,6 +65,4 @@ public class LongStockController {
 		String result="true";
 		return result;
 	}
-	
-	
 }

@@ -52,6 +52,27 @@ public class LongStockDao {
 		List<LongStockVo> longGraph = sqlSession.selectList("longstock.Graph",longSearchGraph);
 		return longGraph;
 	}
+	
+	/* 장기재고 HighGraph */
+	public List<LongStockVo> HighGraph(String keyword){
+		
+		Map<String, Object> longSearchGraph = new HashMap<>();
+		longSearchGraph.put("keyword",keyword);
+		
+		List<LongStockVo> HighGraph = sqlSession.selectList("longstock.HighGraph",longSearchGraph);
+		return HighGraph;
+	}
+	
+	/* 장기재고 RowGraph */
+	public List<LongStockVo> RowGraph(String keyword){
+		
+		Map<String, Object> longSearchGraph = new HashMap<>();
+		longSearchGraph.put("keyword",keyword);
+		
+		List<LongStockVo> RowGraph = sqlSession.selectList("longstock.RowGraph",longSearchGraph);
+		return RowGraph;
+	}
+	
 
 	// 게시물 총 개수
 	public int getTotalCount(String keyword) {

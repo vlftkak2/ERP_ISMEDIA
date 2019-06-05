@@ -1,9 +1,14 @@
 package kr.ac.is.ISMEDIA.controller;
 
-import java.util.ArrayList;
+import java.awt.print.Book;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.ArrayList;
+import java.awt.List; 
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.CsvMapWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import kr.ac.is.ISMEDIA.service.LongStockService;
 import kr.ac.is.ISMEDIA.vo.LongStockVo;
@@ -36,7 +45,6 @@ public class LongStockController {
 		return "/Main_Page/LongStock";
 	}
 	
-	
 	@RequestMapping("graph")
 	public String LongStockGraph(Model model,@RequestParam(value="kwd",required=false, defaultValue="") String keyword) {
 		
@@ -45,7 +53,6 @@ public class LongStockController {
 		
 		return "/Main_Page/LongGraph";
 	}
-	
 	
 		    
 	/* 전체조회 Ajax */
@@ -65,4 +72,38 @@ public class LongStockController {
 		String result="true";
 		return result;
 	}
+	
+	
+	 @RequestMapping(value = "/downloadCSV")
+	    public void downloadCSV(HttpServletResponse response) throws IOException {
+	
+	        String csvFileName = "books.csv";
+	 
+	        response.setContentType("text/csv");
+	 
+	        // creates mock data
+	        String headerKey = "Content-Disposition";
+	        String headerValue = String.format("attachment; filename=\"%s\"",
+	                csvFileName);
+	        response.setHeader(headerKey, headerValue);
+	        
+	        List<LongStockVo> CsvList = longstockservice.Csvlist();
+	        
+	 
+	        // uses the Super CSV API to generate CSV data from the model data
+	        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
+	                CsvPreference.STANDARD_PREFERENCE);
+	 
+	        String[] header = { "Title", "Description", "Author", "Publisher",
+	                "isbn", "PublishedDate", "Price" };
+	 
+	        csvWriter.writeHeader(header);
+	 
+	        for (LongStockVo longstock : CsvList) {
+	            csvWriter.write(longstock, header);
+	        }
+	 
+	        csvWriter.close();
+	    }
+
 }

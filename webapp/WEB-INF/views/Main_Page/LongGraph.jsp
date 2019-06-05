@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>isMedia</title>
 <link rel="stylesheet" type="text/css" href="/ISMEDIA/assets/css/sweetalert.css">
-<link href="/ISMEDIA/assets/css/stockgraph.css" rel="stylesheet" type="text/css">
+<link href="/ISMEDIA/assets/css/graph.css" rel="stylesheet" type="text/css">  
 <link href="/ISMEDIA/assets/css/login.css" rel="stylesheet" type="text/css">  
 <script type="text/javascript" src="/ISMEDIA/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="/ISMEDIA/assets/js/sweetalert.min.js"></script> 
@@ -103,6 +103,7 @@ function drawChart(){
 					<form id="radio_form" >
         			<input type="radio" id=radioTotal name="radioTxt" value="${longGraph.keyword }"  >리스트조회
         			<input type="radio" id="radioGraph" name="radioTxt" value="${longGraph.keyword }" checked >통계조회
+        			<input type="button" id="Button" name="FileDown" value="${longGraph.keyword } 장기재고 파일 다운로드" >
 					</form>
 					</div>
 					</c:if>

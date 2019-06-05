@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kr.ac.is.ISMEDIA.dao.LongStockDao;
 import kr.ac.is.ISMEDIA.vo.LongStockVo;
+import kr.ac.is.ISMEDIA.vo.UserVo;
 
 @Service
 public class LongStockService {
@@ -79,6 +80,11 @@ public class LongStockService {
 		
 		return longGraph;
 		
+	}
+
+	public List<LongStockVo> Csvlist() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

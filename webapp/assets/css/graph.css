@@ -59,9 +59,8 @@ margin-bottom:30px;
 }
 
 #radio{
-
-	margin-left:30px;
-	margin-bottom:20px;
+	margin-left:750px;
+	margin-bottom:50px;
 }
 
 #radio_form{
@@ -90,6 +89,17 @@ input[type="submit"] {
 	background-color: #0080ff; font-weight:bold; color:#FFFFFF;
 	font:1.0em "맑은 고딕", 돋움, 굴림;
 }
+
+input[type="button"] {
+	  		border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+			border: 1px solid skyblue;
+			background-color: rgba(0,0,0,0);
+            color: black;
+            padding: 5px;
+            cursor:pointer;
+}
+
 
 input#kwd	{
 	width:250px;
@@ -223,6 +233,7 @@ a.del	{
  div.pager  ul li a:hover { text-decoration: none; color:#f00 } 
  
  #ItemkindChart{
+ margin-left:100px;
  float:left;
  }
  

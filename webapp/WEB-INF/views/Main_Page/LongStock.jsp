@@ -32,7 +32,7 @@
 						</div>
 					</div>
 					
-						<div id="search">
+					<div id="search">
 						<form id="search_form" action="/ISMEDIA/longstock/list" method="get">
 							<input type="text" id="kwd" name="kwd" value="${longstock.keyword }">
 							<input type="submit" value="찾기">
@@ -44,6 +44,8 @@
 					<form id="radio_form" >
         			<input type="radio" id=radioTotal name="radioTxt" value="${longstock.keyword }" checked >리스트조회
         			<input type="radio" id="radioGraph" name="radioTxt" value="${longstock.keyword }" >통계조회
+        			<input type="button" id="Button" name="FileDown" value="${longstock.keyword } 장기재고 파일 다운로드" >
+        			<a href="/downloadCSV">DOWNLOAD</a>
 					</form>
 					</div>
 					</c:if>

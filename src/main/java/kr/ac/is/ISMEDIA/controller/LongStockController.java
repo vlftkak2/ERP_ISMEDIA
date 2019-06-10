@@ -1,6 +1,5 @@
 package kr.ac.is.ISMEDIA.controller;
 
-import java.awt.print.Book;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +40,8 @@ public class LongStockController {
 			@RequestParam(value="kwd",required=false, defaultValue="") String keyword,
 			@RequestParam(value="p",required=true,defaultValue="1") String Page){
 		
+		System.out.println("keyword : "+keyword);
+		
 		Map<String,Object> longSearch = longstockservice.list(Page,keyword);
 		model.addAttribute("longstock",longSearch);
 		
@@ -75,22 +76,23 @@ public class LongStockController {
 		return result;
 	}
 	
+	
 	/* CSV파일 다운로드 */
 	@RequestMapping(value = "/downloadCSV", method = RequestMethod.GET)
 	public void downloadCSV(HttpServletResponse response,@RequestParam(value="date",defaultValue="") String date,
 			@RequestParam(value="csv",required=false, defaultValue="") String keyword) throws Exception {
 		
 		List<LongStockCsvVo> Csvlist = longstockservice.Csvlist(keyword);  
-		String filename="downfile.csv";
-		response.setContentType("text/csv; charset=MS949");
+		String filename=keyword+" 장기재고현황.csv";
+		response.setContentType("text/csv; charset=EUC-KR");
 		
-		String headerKey="Content-Disposition";
-		String headerValue=String.format("attachment; filename=\"%s\"",filename);
-		response.setHeader(headerKey, headerValue);
+		//String headerKey="Content-Disposition";
+		//String headerValue=String.format("attachment; filename=\"%s\"",filename);		
+		//response.setHeader(headerKey, headerValue);
+		
+		response.setHeader("Content-Disposition", "filename="+new String(filename.getBytes("euc-kr"),"8859_1"));
 		
 		System.out.println("keyword : "+keyword);
-		System.out.println("Csvlist : "+Csvlist);
-		
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
 		
 		String[] header = {"기준월","월","품목코드","품목명","규격","입고수량","출고계","출고","재고","품목수",
@@ -100,9 +102,7 @@ public class LongStockController {
 		for(LongStockCsvVo vo : Csvlist) {
 			csvWriter.write(vo, header);
 		}
-		
 		csvWriter.close();
-		
 	}
 
 }

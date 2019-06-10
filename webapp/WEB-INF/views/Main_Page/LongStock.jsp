@@ -19,7 +19,8 @@
 
 <jsp:include page="/WEB-INF/views/include/header.jsp" />
 	 <div id="content">
-			<div class="container_map">
+			
+		</div><div class="container_map">
 				<div class="container_mapsub">
 
 					<div id="store_header">
@@ -39,18 +40,18 @@
 						</form>
 					</div>
 					
-					<c:if test='${not empty longstock.list }'>
+					<c:if test="${not empty longstock.list }">
 					<div id="radio">
-					<form id="radio_form" >
-        			<input type="radio" id=radioTotal name="radioTxt" value="${longstock.keyword }" checked >리스트조회
-        			<input type="radio" id="radioGraph" name="radioTxt" value="${longstock.keyword }" >통계조회
-        			<input type="button" id="Button" name="FileDown" value="${longstock.keyword } 장기재고 파일 다운로드" >
-        			<a href="/ISMEDIA/longstock/downloadCSV?csv=${longstock.keyword }">DOWNLOAD</a>
+					<form id="radio_form">
+        			<input type="radio" id="radioTotal" name="radioTxt" value="${longstock.keyword }" checked>리스트조회
+        			<input type="radio" id="radioGraph" name="radioTxt" value="${longstock.keyword }">통계조회
+        			<input type="button" id="Button" name="FileDown" value="${longstock.keyword } 장기재고 파일 다운로드">
+        			<a href="/ISMEDIA/longstock/downloadCSV?csv=${longstock.keyword }" id="href">${longstock.keyword} 장기재고 파일 다운로드</a>
 					</form>
 					</div>
 					</c:if>
 
-					<div id=map_container>
+					<div id="map_container">
 						<div id="board">
 							<table class="tbl-ex">
 								<tr>
@@ -73,7 +74,7 @@
 									<th>초과일수</th>
 								</tr>
 								
-								<c:forEach var='vo' items='${longstock.list}' varStatus='status' >
+								<c:forEach var="vo" items="${longstock.list}" varStatus="status">
 									<tr>
 										<td>${vo.stdate }</td>
 										<td>${vo.month }</td>
@@ -96,7 +97,7 @@
 								</c:forEach>
 							</table>
 
-							<c:if test='${empty longstock.list }'>
+							<c:if test="${empty longstock.list }">
 								<div id="map_right">
 									<div id="map_risk">
 										<img src="/ISMEDIA/assets/images/longstock/risk.png">
@@ -107,6 +108,7 @@
 								</div>
 							</c:if>
 
+							<!-- begin:paging -->
 							<c:if test='${not empty longstock.list }'>
 							<!-- begin:paging -->
 							<div class="pager">
@@ -145,6 +147,7 @@
 								</ul>
 							</div>
 							</c:if>
+
 						</div>
 						<div id="map"></div>
 					</div>
@@ -153,7 +156,6 @@
 
 				</div>
 			</div>
-		</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

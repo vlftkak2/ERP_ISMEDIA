@@ -4,9 +4,10 @@ import java.awt.print.Book;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
-import java.util.ArrayList;
-import java.awt.List; 
+import java.util.Random; 
+import java.io.IOException;
+import java.util.List; 
+
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ import org.supercsv.prefs.CsvPreference;
 
 import kr.ac.is.ISMEDIA.service.LongStockService;
 import kr.ac.is.ISMEDIA.vo.LongStockVo;
+import kr.ac.is.ISMEDIA.vo.LongStockCsvVo;
 
 @Controller
 @RequestMapping("/longstock")
@@ -73,37 +75,34 @@ public class LongStockController {
 		return result;
 	}
 	
-	
-	 @RequestMapping(value = "/downloadCSV")
-	    public void downloadCSV(HttpServletResponse response) throws IOException {
-	
-	        String csvFileName = "books.csv";
-	 
-	        response.setContentType("text/csv");
-	 
-	        // creates mock data
-	        String headerKey = "Content-Disposition";
-	        String headerValue = String.format("attachment; filename=\"%s\"",
-	                csvFileName);
-	        response.setHeader(headerKey, headerValue);
-	        
-	        List<LongStockVo> CsvList = longstockservice.Csvlist();
-	        
-	 
-	        // uses the Super CSV API to generate CSV data from the model data
-	        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),
-	                CsvPreference.STANDARD_PREFERENCE);
-	 
-	        String[] header = { "Title", "Description", "Author", "Publisher",
-	                "isbn", "PublishedDate", "Price" };
-	 
-	        csvWriter.writeHeader(header);
-	 
-	        for (LongStockVo longstock : CsvList) {
-	            csvWriter.write(longstock, header);
-	        }
-	 
-	        csvWriter.close();
-	    }
+	/* CSV파일 다운로드 */
+	@RequestMapping(value = "/downloadCSV", method = RequestMethod.GET)
+	public void downloadCSV(HttpServletResponse response,@RequestParam(value="date",defaultValue="") String date,
+			@RequestParam(value="csv",required=false, defaultValue="") String keyword) throws Exception {
+		
+		List<LongStockCsvVo> Csvlist = longstockservice.Csvlist(keyword);  
+		String filename="downfile.csv";
+		response.setContentType("text/csv; charset=MS949");
+		
+		String headerKey="Content-Disposition";
+		String headerValue=String.format("attachment; filename=\"%s\"",filename);
+		response.setHeader(headerKey, headerValue);
+		
+		System.out.println("keyword : "+keyword);
+		System.out.println("Csvlist : "+Csvlist);
+		
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
+		
+		String[] header = {"기준월","월","품목코드","품목명","규격","입고수량","출고계","출고","재고","품목수",
+						"품목순번","단가","금액","비고","비고상세","초과일수"};
+		csvWriter.writeHeader(header);
+		
+		for(LongStockCsvVo vo : Csvlist) {
+			csvWriter.write(vo, header);
+		}
+		
+		csvWriter.close();
+		
+	}
 
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import kr.ac.is.ISMEDIA.dao.LongStockDao;
+import kr.ac.is.ISMEDIA.vo.LongStockCsvVo;
 import kr.ac.is.ISMEDIA.vo.LongStockVo;
 import kr.ac.is.ISMEDIA.vo.UserVo;
 
@@ -81,11 +82,13 @@ public class LongStockService {
 		return longGraph;
 		
 	}
-
-	public List<LongStockVo> Csvlist() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+	public List<LongStockCsvVo> Csvlist(String keyword){
+		
+		List<LongStockCsvVo> Csvlist = longstockdao.Csvlist(keyword);
+		return Csvlist;
+		
+	}
+
 
 }

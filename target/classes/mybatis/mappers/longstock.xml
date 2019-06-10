@@ -88,5 +88,32 @@ Select * From
 	Select top 10 codenm itemkind,itemcd,itemnm,size,stock,amt From Last_TemporaryData where standard_date Like #{keyword} Order by amt desc  
      ]]>  
    </select>
+   
+   <!-- CSV파일 리스트 -->
+   <select id="Csvlist" parameterType="map" resultType="longstockcsvvo">
+    <![CDATA[
+	Select * From 
+(Select 
+		  C.기준월,
+		  C.월,
+		  C.품목코드,
+		  C.품목명,
+		  C.규격,
+		  C.입고수량,
+		  C.출고계,
+		  C.출고,
+		  C.재고,
+		  C.품목수,
+		  C.품목순번,
+		  C.단가,
+		  C.금액,
+		  C.비고,
+		  C.비고상세,
+		  convert(varchar(200),C.일수)+'일' 초과일수 From 
+(Select 기준월,월,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Case when 일수>=365 Then convert(varchar(100),일수/365)+convert(varchar(100),'년 초과') Else convert(varchar(200),비고) End 비고상세,일수 From 
+(Select 기준월,월,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Datediff(dd,a.비교월,a.비교기준월) 일수 From 
+(select convert(date,standard_date+'01') 비교기준월,convert(date,dates+'01') 비교월,standard_date 기준월,dates 월,itemcd 품목코드,itemnm 품목명,size 규격,toqty 입고수량,toqty2 출고계,toqty3 출고,stock 재고,itemcdcount 품목수,seq 품목순번,unitprice 단가,amt 금액,remark 비고 from Last_TemporaryData where stock not like '0%' and standard_date like #{keyword} ) A ) B ) C ) D order by 월,품목코드  
+     ]]>  
+   </select>
 
 </mapper>

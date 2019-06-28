@@ -5,9 +5,13 @@
 	<typeAlias type="kr.ac.is.ISMEDIA.vo.UserVo" alias="uservo"/>
 	<typeAlias type="kr.ac.is.ISMEDIA.vo.LongStockVo" alias="longstockvo"/>
 	<typeAlias type="kr.ac.is.ISMEDIA.vo.LongStockCsvVo" alias="longstockcsvvo"/>
+	<typeAlias type="kr.ac.is.ISMEDIA.vo.ProjectVo" alias="projectvo"/>
+	<typeAlias type="kr.ac.is.ISMEDIA.vo.BomVo" alias="bomvo"/>
 	</typeAliases>
 	<mappers>
 	    	<mapper resource="mybatis/mappers/user.xml" />
 	    	<mapper resource="mybatis/mappers/longstock.xml" />
+	    	<mapper resource="mybatis/mappers/project.xml" />
+	    	<mapper resource="mybatis/mappers/bom.xml" />
 			</mappers>
 </configuration>

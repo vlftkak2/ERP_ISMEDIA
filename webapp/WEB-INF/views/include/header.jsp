@@ -46,7 +46,7 @@
 
 								<li><h2><a href="/ISMEDIA/longstock/list">장기재고</a></h2>
 								</li>
-								<li><h2><a href="/ISMEDIA/BOM">장비재료비</a></h2>
+								<li><h2><a href="/ISMEDIA/bom/pjtlist">장비재료비</a></h2>
 								</ul>
 							</div>
 						</div>

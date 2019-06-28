@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project">
+
+<!-- bom프로젝트 리스트 -->
+<select id="getList" resultType="projectvo">
+	<![CDATA[
+	Select * From 
+(select row_number() over(order by orderdt desc) rn,
+	orderdt,
+	pjtno,
+	pjtnm,
+	itemcd,
+	itemnm,
+	size,
+	qty,
+	strdata02 customnm from openquery(ismediasvr2,'  
+select a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,sum(b.qty) qty,a.pjtnm,e.strdata02 from pjmst01t a, pjmst05t b, biitm01t d,bicus03t e 
+where a.pjtno=b.pjtno and b.itemcd=d.itemcd and (d.itemkind=1 or d.itemkind=2 or b.itemcd like ''r%'') and (b.itemcd like ''A%'' or b.itemcd like ''P%'' or b.itemcd like ''R%'') and b.itemcd not like ''U1%'' and b.itemcd not like ''A2%'' and a.customcd=e.customcd 
+group by a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,a.pjtnm,e.strdata02  ') ) A Where rn>=#{page_start} and rn<=#{page_end} Order by orderdt desc,Itemcd asc
+	]]>
+</select>
+
+<!-- bom프로젝트 Search 리스트 -->
+<select id="projectListKeyword" parameterType="map"  resultType="projectvo">
+	<![CDATA[
+Select * From 
+(Select row_number() over(order by orderdt desc) rn,orderdt,pjtno,pjtnm,itemcd,itemnm,size,qty,customnm From 
+(select
+	orderdt,
+	pjtno,
+	pjtnm,
+	itemcd,
+	itemnm,
+	size,
+	qty,
+	strdata02 customnm from openquery(ismediasvr2,'  
+select a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,sum(b.qty) qty,a.pjtnm,e.strdata02 from pjmst01t a, pjmst05t b, biitm01t d,bicus03t e 
+where a.pjtno=b.pjtno and b.itemcd=d.itemcd and (d.itemkind=1 or d.itemkind=2 or b.itemcd like ''r%'') and (b.itemcd like ''A%'' or b.itemcd like ''P%'' or b.itemcd like ''R%'') and b.itemcd not like ''U1%'' and b.itemcd not like ''A2%'' and a.customcd=e.customcd 
+group by a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,a.pjtnm,e.strdata02') ) A Where (orderdt like #{keyword} or pjtno like #{keyword} or pjtnm like #{keyword} or itemcd like #{keyword} or itemnm like #{keyword} or size like #{keyword} or customnm like #{keyword})) A where rn>=#{page_start} and rn<=#{page_end} Order by orderdt desc,Itemcd asc
+	]]>
+</select>
+
+<!-- bom프로젝트 게시물 총 개수 -->
+<select id="getTotalCount" parameterType="map"  resultType="java.lang.Integer">
+	<![CDATA[
+select count(pjtno) co from openquery(ismediasvr2,'  
+select a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,sum(b.qty) qty,a.pjtnm,e.strdata02 from pjmst01t a, pjmst05t b, biitm01t d,bicus03t e 
+where a.pjtno=b.pjtno and b.itemcd=d.itemcd and (d.itemkind=1 or d.itemkind=2 or b.itemcd like ''r%'') and (b.itemcd like ''A%'' or b.itemcd like ''P%'' or b.itemcd like ''R%'') and b.itemcd not like ''U1%'' and b.itemcd not like ''A2%'' and a.customcd=e.customcd 
+group by a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,a.pjtnm,e.strdata02  ')  
+	]]>
+</select>
+
+<!-- bom프로젝트 검색 총 개수 -->
+<select id="getTotalSearchCount" parameterType="map"  resultType="java.lang.Integer">
+	<![CDATA[
+Select count(pjtno) co From
+(select orderdt,pjtno,pjtnm,itemcd,itemnm,size,strdata02 from openquery(ismediasvr2,'  
+select a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,sum(b.qty) qty,a.pjtnm,e.strdata02 from pjmst01t a, pjmst05t b, biitm01t d,bicus03t e 
+where a.pjtno=b.pjtno and b.itemcd=d.itemcd and (d.itemkind=1 or d.itemkind=2 or b.itemcd like ''r%'') and (b.itemcd like ''A%'' or b.itemcd like ''P%'' or b.itemcd like ''R%'') and b.itemcd not like ''U1%'' and b.itemcd not like ''A2%'' and a.customcd=e.customcd 
+group by a.orderdt,a.pjtno,b.itemcd,d.itemnm,d.size,a.pjtnm,e.strdata02 ')) A where (orderdt like #{keyword} or pjtno like #{keyword} or pjtnm like #{keyword} or itemcd like #{keyword} or itemnm like #{keyword} or size like #{keyword} or strdata02 like #{keyword}) 
+	]]>
+</select>
+
+</mapper>

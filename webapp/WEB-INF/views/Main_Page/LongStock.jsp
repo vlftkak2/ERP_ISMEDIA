@@ -45,8 +45,7 @@
 					<form id="radio_form">
         			<input type="radio" id="radioTotal" name="radioTxt" value="${longstock.keyword }" checked>리스트조회
         			<input type="radio" id="radioGraph" name="radioTxt" value="${longstock.keyword }">통계조회
-        			<input type="button" id="Button" name="FileDown" value="${longstock.keyword } 장기재고 파일 다운로드">
-        			<a href="/ISMEDIA/longstock/downloadCSV?csv=${longstock.keyword }" id="href">${longstock.keyword} 장기재고 파일 다운로드</a>
+        			<input type="button" id="Button" name="FileDown" onclick="location.href='/ISMEDIA/longstock/downloadCSV?csv=${longstock.keyword }'" value="장기재고 파일 다운로드 ">
 					</form>
 					</div>
 					</c:if>
@@ -80,16 +79,16 @@
 										<td>${vo.month }</td>
 										<td>${vo.itemkind}</td>
 										<td>${vo.itemcd }</td>
-										<td>${vo.itemnm }</td>
+										<td align="left">${vo.itemnm }</td>
 										<td>${vo.size }</td>
-										<td><fmt:formatNumber value="${vo.inqty}" pattern="#,##0" /></td>
-										<td><fmt:formatNumber value="${vo.sumout}" pattern="#,##0" /></td>
-										<td><fmt:formatNumber value="${vo.outqty}" pattern="#,##0" /></td>
-										<td><fmt:formatNumber value="${vo.jqty}" pattern="#,##0" /></td>
-										<td>${vo.coitemcd }</td>
-										<td>${vo.seqitemcd }</td>
-										<td><fmt:formatNumber value="${vo.price}" pattern="#,##0.00" /></td>
-										<td><fmt:formatNumber value="${vo.amt}" pattern="#,##0.00" /></td>
+										<td align="right"><fmt:formatNumber value="${vo.inqty}" pattern="#,##0" /></td>
+										<td align="right"><fmt:formatNumber value="${vo.sumout}" pattern="#,##0" /></td>
+										<td align="right"><fmt:formatNumber value="${vo.outqty}" pattern="#,##0" /></td>
+										<td align="right"><fmt:formatNumber value="${vo.jqty}" pattern="#,##0" /></td>
+										<td align="right">${vo.coitemcd }</td>
+										<td align="right">${vo.seqitemcd }</td>
+										<td align="right"><fmt:formatNumber value="${vo.price}" pattern="#,##0.00" /></td>
+										<td align="right"><fmt:formatNumber value="${vo.amt}" pattern="#,##0.00" /></td>
 										<td>${vo.remark }</td>
 										<td>${vo.dremark }</td>
 										<td>${vo.overdate }</td>

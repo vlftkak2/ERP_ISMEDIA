@@ -40,7 +40,6 @@ public class LongStockController {
 			@RequestParam(value="kwd",required=false, defaultValue="") String keyword,
 			@RequestParam(value="p",required=true,defaultValue="1") String Page){
 		
-		System.out.println("keyword : "+keyword);
 		
 		Map<String,Object> longSearch = longstockservice.list(Page,keyword);
 		model.addAttribute("longstock",longSearch);
@@ -92,7 +91,6 @@ public class LongStockController {
 		
 		response.setHeader("Content-Disposition", "filename="+new String(filename.getBytes("euc-kr"),"8859_1"));
 		
-		System.out.println("keyword : "+keyword);
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
 		
 		String[] header = {"기준월","월","품목코드","품목명","규격","입고수량","출고계","출고","재고","품목수",

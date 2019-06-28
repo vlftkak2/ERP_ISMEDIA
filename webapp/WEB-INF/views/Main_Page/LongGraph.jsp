@@ -103,7 +103,7 @@ function drawChart(){
 					<form id="radio_form" >
         			<input type="radio" id=radioTotal name="radioTxt" value="${longGraph.keyword }"  >리스트조회
         			<input type="radio" id="radioGraph" name="radioTxt" value="${longGraph.keyword }" checked >통계조회
-        			<input type="button" id="Button" name="FileDown" value="${longGraph.keyword } 장기재고 파일 다운로드" >
+        			<input type="button" id="Button" name="FileDown" onclick="location.href='/ISMEDIA/longstock/downloadCSV?csv=${longGraph.keyword }'" value="장기재고 파일 다운로드 ">
 					</form>
 					</div>
 					</c:if>

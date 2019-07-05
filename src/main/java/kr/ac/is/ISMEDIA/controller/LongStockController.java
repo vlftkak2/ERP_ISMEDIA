@@ -85,10 +85,6 @@ public class LongStockController {
 		String filename=keyword+" 장기재고현황.csv";
 		response.setContentType("text/csv; charset=EUC-KR");
 		
-		//String headerKey="Content-Disposition";
-		//String headerValue=String.format("attachment; filename=\"%s\"",filename);		
-		//response.setHeader(headerKey, headerValue);
-		
 		response.setHeader("Content-Disposition", "filename="+new String(filename.getBytes("euc-kr"),"8859_1"));
 		
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);

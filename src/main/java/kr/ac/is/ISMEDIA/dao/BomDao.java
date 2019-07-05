@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.ac.is.ISMEDIA.vo.BomCsvVo;
 import kr.ac.is.ISMEDIA.vo.BomVo;
 import kr.ac.is.ISMEDIA.vo.ProjectVo;
 
@@ -86,6 +87,17 @@ public class BomDao {
 			int totalCount = sqlSession.selectOne("bom.getCount",count);
 			
 			return totalCount;
+		}
+		
+		/* BOM CSV 다운로드 */
+		public List<BomCsvVo> Csvlist(String pjtno,String itemcd){
+			
+			Map<String, Object> CsvKeyword = new HashMap<>();
+			CsvKeyword.put("pjtno", pjtno);
+			CsvKeyword.put("itemcd", itemcd);
+			
+			List<BomCsvVo> Csvlist = sqlSession.selectList("bom.Csvlist",CsvKeyword);
+			return Csvlist;
 		}
 
 }

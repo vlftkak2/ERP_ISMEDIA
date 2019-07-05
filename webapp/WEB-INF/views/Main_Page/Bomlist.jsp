@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <title>isMedia</title>
 <link rel="stylesheet" type="text/css" href="/ISMEDIA/assets/css/sweetalert.css">
-<link href="/ISMEDIA/assets/css/bomlist2.css" rel="stylesheet" type="text/css">
+<link href="/ISMEDIA/assets/css/bomlist.css" rel="stylesheet" type="text/css">
 <link href="/ISMEDIA/assets/css/login.css" rel="stylesheet" type="text/css">  
 <script type="text/javascript" src="/ISMEDIA/assets/js/jquery/jquery-1.9.0.js"></script>
 <script src="/ISMEDIA/assets/js/sweetalert.min.js"></script> 
@@ -33,29 +33,21 @@
 						</div>
 					</div>
 					
-					<div id="search">
-						<form id="search_form" action="/ISMEDIA/longstock/list" method="get">
-							<input type="text" id="kwd" name="kwd" value="${longstock.keyword }">
-							<input type="submit" value="찾기">
-						</form>
-					</div>
-					
 					<c:if test="${not empty mpbomlist.bomlist }">
 					<div id="radio">
 					<form id="radio_form">
-        			<input type="radio" id="radioTotal" name="radioTxt" value="${longstock.keyword }" checked>리스트조회
-        			<input type="radio" id="radioGraph" name="radioTxt" value="${longstock.keyword }">통계조회
-        			<input type="button" id="Button" name="FileDown" onclick="location.href='/ISMEDIA/longstock/downloadCSV?csv=${longstock.keyword }'" value="장기재고 파일 다운로드 ">
+        			<input type="radio" id="radioTotal" name="radioTxt" value="${mpbomlist.keyword }" checked>리스트조회
+        			<input type="radio" id="radioGraph" name="radioTxt" value="${mpbomlist.keyword }">통계조회
+        			<input type="button" id="Button" name="FileDown" onclick="location.href='/ISMEDIA/bom/downloadCSV?pjtno=${mpbomlist.pjtno }&itemcd=${mpbomlist.itemcd }'" value="BOM 파일 다운로드 ">
 					</form>
 					</div>
 					</c:if>
 
-					<div id="map_container">
-						<div id="board" style="width:2500px; height:400px; overflow:auto;">
-						
-							<table class="tbl-ex" >
+					<div id="map_container" >
+						<div id="board">
+							<table class="tbl-ex">
 							<thead>
-								<tr style="position:abolute;">
+								<tr>
 									<th>순서</th>
 									<th>모품목코드</th>
 									<th>모품목명</th>
@@ -74,26 +66,25 @@
 									<th>거래처</th>
 								</tr>
 							</thead>
-							
 							<tbody>
 								<c:forEach var="vo" items="${mpbomlist.bomlist}" varStatus="status">
 									<tr>
-										<td>${vo.seqno }</td>
+										<td align="center">${vo.seqno }</td>
 										<td>${vo.pitemcd }</td>
-										<td>${vo.pitemnm }</td>
-										<td>${vo.itemcd }</td>
-										<td>${vo.itemnm }</td>
-										<td>${vo.size }</td>
-										<td>${vo.material }</td>
-										<td>${vo.maker }</td>
-										<td align="right">${vo.level }</td>
-										<td>${vo.reference }</td>
-										<td align="right">${vo.bomst }</td>
-										<td align="right">${vo.bomsu }</td>
-										<td>${vo.currency }</td>
+										<td align="left">${vo.pitemnm }</td>
+										<td align="center">${vo.itemcd }</td>
+										<td align="center">${vo.itemnm }</td>
+										<td align="center">${vo.size }</td>
+										<td align="center">${vo.material }</td>
+										<td align="center">${vo.maker }</td>
+										<td align="center">${vo.level }</td>
+										<td align="center">${vo.reference }</td>
+										<td align="center">${vo.bomst }</td>
+										<td align="center">${vo.bomsu }</td>
+										<td align="center">${vo.currency }</td>
 										<td align="right"><fmt:formatNumber value="${vo.price}" pattern="#,##0" /></td>
-										<td><fmt:formatNumber value="${vo.amt }" pattern="#,##0" /></td>
-										<td>${vo.customnm }</td>
+										<td align="right"><fmt:formatNumber value="${vo.amt }" pattern="#,##0" /></td>
+										<td align="center">${vo.customnm }</td>
 									</tr>
 								</c:forEach>
 								</tbody>

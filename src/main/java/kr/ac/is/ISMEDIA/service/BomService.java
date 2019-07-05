@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.ac.is.ISMEDIA.dao.BomDao;
-import kr.ac.is.ISMEDIA.dao.LongStockDao;
+import kr.ac.is.ISMEDIA.vo.BomCsvVo;
 import kr.ac.is.ISMEDIA.vo.BomVo;
-import kr.ac.is.ISMEDIA.vo.LongStockVo;
 import kr.ac.is.ISMEDIA.vo.ProjectVo;
 
 @Service
@@ -115,6 +114,14 @@ public class BomService {
 		mpbomlist.put("prevtoPage", prevtoPage);
 		
 		return mpbomlist;
+	}
+	
+	/* BOM CSV 다운로드 */
+	public List<BomCsvVo> Csvlist(String pjtno,String itemcd){
+		
+		List<BomCsvVo> Csvlist = bomdao.Csvlist(pjtno,itemcd);
+		return Csvlist;
+		
 	}
 
 }

@@ -36,4 +36,27 @@ select 순서 seqno,
 	]]>
 </select>
 
+<select id="Csvlist" resultType="bomcsvvo">
+<![CDATA[
+select 순서,
+		모품목코드,
+		모품목_품목명 모품목명 ,
+              자품목코드 ,
+		품목명 ,
+		규격 ,
+		패키지 ,
+		메이커 ,
+		reference,
+		레벨 ,
+		표준원수 ,
+		소요원수 ,
+		화폐 ,
+		Convert(varchar,Convert(money,단가),1) 단가,
+		Convert(varchar,Convert(money,금액),1) 금액,
+		거래처 
+ from fubom(#{pjtno},#{itemcd}) 
+]]>
+
+</select>
+
 </mapper>

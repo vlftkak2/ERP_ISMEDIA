@@ -28,12 +28,6 @@ margin-bottom:30px;
 	font-weight:bold;
 	font-size:1.5em;
 	 }
-
-#board { 
-	width:1400px;
-	height:auto;
-    float:left; 
-        }
         
 #store_header{
 	margin-top:50px;
@@ -60,6 +54,7 @@ margin-bottom:30px;
 }
 
 #radio{
+	margin-top:150px;
 	margin-left:1150px;
 	margin-bottom:50px;
 }
@@ -69,62 +64,62 @@ margin-bottom:30px;
 }
 
 #map_container{
-
-	width:1700px;
+	width:2450px;
+	position: relative;
 
 }
 
-#board{
+#board { 
 	margin-left:10px;
-}
-
-input[type="text"]	{
-	padding:5px; 
-	border:1px solid #aaa
-}
-
-input[type="submit"] {
-	padding:12px;
-	border:1px solid #ffffff; 
-	background-color: #0080ff; font-weight:bold; color:#FFFFFF;
-	font:1.0em "맑은 고딕", 돋움, 굴림;
-}
-
-input[type="button"] {
-	  		border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-			border: 1px solid skyblue;
-			background-color: rgba(0,0,0,0);
-            color: black;
-            padding: 5px;
-            cursor:pointer;
-}
-
-.abcd{
-	color: #ffffff;
-background: #3379FE; 
-font-size: 1.2em;
-padding: 0.3em 0.5em;
-margin-right: 0.1em;
-	
-}
-
-input#kwd	{
-	width:250px;
-}
-
-
-.board-form {
-	margin-top:30px
-}
+	width:2450px;
+	height:500px;
+	overflow:auto;
+	overflow-x:hidden;
+    float:left; 
+        }
 
 .tbl-ex		{
-	width:2400px;
+	width:2450px;
 	margin:10px 10px;
 	border-collapse:collapse;
 	border-bottom:2px solid #333;
+
 }
 
+#map_container #board table thead{
+    position: absolute;
+    top: 0;
+    margin-top:-20px;
+}
+
+#map_container #board table tr {
+    display: inline-table;
+    width: 2400px;
+    table-layout:fixed;
+}
+
+
+/* Lay-out 고정
+#map_container #board table thead{
+	display: inline-table;
+	width:inherit;
+    position:absolute;
+    top: 0;
+}
+
+#map_container #board table thead{
+    position: absolute;
+    top: 0;
+    margin-top:-20px;
+}
+
+#map_container #board table tr {
+    display: inline-table;
+    width: 2400px;
+    table-layout:fixed;
+}
+*/
+	
 
 .tbl-ex th, 
 .tbl-ex td	{ 
@@ -134,8 +129,6 @@ input#kwd	{
 .tbl-ex th{
 	text-align:center;
 }
-
-
 .tbl-ex th	{ 
 	border-top:1px solid #c0c0c0;
 	border-bottom:1px solid #c0c0c0; 
@@ -242,4 +235,4 @@ a.del	{
  div.pager  ul li a:visited, 
  div.pager  ul li a:link, 
  div.pager  ul li a:active { text-decoration: none; color:#f80 } 
- div.pager  ul li a:hover { text-decoration: none; color:#0000FF } 
+ div.pager  ul li a:hover { text-decoration: none; color:#0000FF }  

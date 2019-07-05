@@ -63,7 +63,7 @@
 										<td>${vo.itemcd }</td>
 										<td align="left">${vo.itemnm }</td>
 										<td>${vo.size }</td>
-										<td>${vo.qty }</td>
+										<td align="right">${vo.qty }</td>
 										<td>${vo.customnm }</td>
 									</tr>
 								</c:forEach>

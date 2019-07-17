@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!--게시물 총 개수  -->
+	<select id="totalCount" resultType="java.lang.Integer">
+		<![CDATA[
+		select count(*) from customboard 
+		]]>
+	</select>
+
+	<!--게시물 리스트  -->
+	<select id="getList" parameterType="map" resultType="boardvo">
+		<![CDATA[
+Select * From 
+		  (Select row_number() over(order by no) rn,
+		  no,
+		  title,
+		  name,
+		  UserNo,
+		  count,
+		  regdate,
+		  depth,
+		  groupNo,
+		  groupOrderNo 
+From CustomBoard) a where rn>=#{keyword} and rn<=#{keyword} 
+		]]>
+	</select>
+	
+	
+	<!--검색 게시물 리스트  -->
+	<select id="getListKeyword" parameterType="map" resultType="boardvo">
+		<![CDATA[
+Select * From 
+		  (Select row_number() over(order by no) rn,
+		  no,
+		  title,
+		  name,
+		  UserNo,
+		  count,
+		  regdate,
+		  depth,
+		  groupNo,
+		  groupOrderNo 
+From CustomBoard where (title like #{keyword} or content like #{keyword}) ) a where rn>=#{keyword} and rn<=#{keyword}
+		]]>
+	</select>
+
+
+</mapper>

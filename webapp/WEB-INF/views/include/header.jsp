@@ -41,13 +41,11 @@
 						<h1 class="logo"><a href="/ISMEDIA/main">GS25</a></h1>
 						<div class="gnb" id="gnb_menu">
 							<ul>
-								<li><h2><a href="/ISMEDIA/Cost" class="on">원가검증</a></h2>
-								</li>
-
-								<li><h2><a href="/ISMEDIA/longstock/list">장기재고</a></h2>
-								</li>
-								<li><h2><a href="/ISMEDIA/bom/pjtlist">장비재료비</a></h2>
-								</ul>
+								<li><h2><a href="/ISMEDIA/board/list">게시판</a></h2></li>
+								<li><h2><a href="/ISMEDIA/Cost" class="on">원가검증</a></h2></li>
+								<li><h2><a href="/ISMEDIA/longstock/list">장기재고</a></h2></li>
+								<li><h2><a href="/ISMEDIA/bom/pjtlist">장비재료비</a></h2></li>
+							</ul>
 							</div>
 						</div>
 

@@ -8,6 +8,7 @@ public class UserVo {
 	private String teamname;
 	private String authmenu;
 	private String auth;
+	
 	public String getId() {
 		return id;
 	}

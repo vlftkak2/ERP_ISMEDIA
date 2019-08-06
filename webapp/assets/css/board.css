@@ -2,7 +2,7 @@
 @IMPORT "isMedia.css";
 
 #map{
-width: 40%; height: 350px; 
+width: 40%; height: 600px; 
 float:left;
 margin-bottom:30px;
 }
@@ -30,7 +30,7 @@ margin-bottom:30px;
 	 }
 
 #board { 
-	width:1400px;
+	width:1800px;
     float:left; 
         }
         
@@ -114,7 +114,7 @@ input#kwd	{
 
 
 .board-form {
-	margin-top:30px
+	margin-top:150px
 }
 
 .tbl-ex		{
@@ -153,22 +153,28 @@ input#kwd	{
 }
 
 .board-form .tbl-ex td.label {
-	text-align:right;
+	text-align:center;
 	font-weight:bold;
 	width:60px; 
 }
 
 
 .board-form .tbl-ex input[ name='title' ] {
-	width: 480px;
+	margin-left:80px;
+	width: 1600px;
 }
 
 .board-form .tbl-ex textarea#content {
-	width: 470px;
+	margin-left:80px;
+	width: 1590px;
 	height: 200px;
 	padding: 10px;
 	resize: none;
 	outline: none;	
+}
+
+.board-form .tbl-ex input[ name='file[]' ] {
+	margin-left:80px;
 }
 
 .board-form select {
@@ -198,6 +204,7 @@ a#new-book	 {
 	color:#111 
 }
 
+
 .board-form .bottom a,
 .board-form .bottom input[type="submit"] {
 	float:right; 
@@ -206,7 +213,7 @@ a#new-book	 {
 	font-weight:bold; 
 	background-color:#E8ECF6; 
 	color:#111;
-	cursor: pointer	
+	cursor: pointer	;
 }
 
 .board-form .bottom a {
@@ -222,12 +229,17 @@ a.del	{
 	font-size:0;
 }
 
+/* img */
+
+img{
+width:30px;
+}
+
 /* 
 137 	게시판 리스트 페이징 
 138 */ 
  div.pager { 
- 	width:100%; 
- 	margin-left:170px;
+ 	width:1660px; 
  	text-align:center; 
  } 
  div.pager  ul { 

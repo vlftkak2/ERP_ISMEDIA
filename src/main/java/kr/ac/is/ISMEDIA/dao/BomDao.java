@@ -50,7 +50,6 @@ public class BomDao {
 			
 			int totalCount = sqlSession.selectOne("project.getTotalCount",count);
 			return totalCount;
-			
 		}
 		
 		// 프로젝트 검색 총 수

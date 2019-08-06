@@ -6,7 +6,7 @@
 	<!--게시물 총 개수  -->
 	<select id="totalCount" resultType="java.lang.Integer">
 		<![CDATA[
-		select count(*) from customboard 
+		select count(*) from board 
 		]]>
 	</select>
 
@@ -17,14 +17,14 @@ Select * From
 		  (Select row_number() over(order by no) rn,
 		  no,
 		  title,
-		  name,
-		  UserNo,
+		  UserId,
+		  UserName,
 		  count,
 		  regdate,
 		  depth,
 		  groupNo,
-		  groupOrderNo 
-From CustomBoard) a where rn>=#{keyword} and rn<=#{keyword} 
+		  OrderNo 
+From board) a where rn>=#{page_start} and rn<=#{page_end} 
 		]]>
 	</select>
 	
@@ -36,16 +36,61 @@ Select * From
 		  (Select row_number() over(order by no) rn,
 		  no,
 		  title,
-		  name,
-		  UserNo,
+		  UserId,
+		  UserName,
 		  count,
 		  regdate,
 		  depth,
 		  groupNo,
-		  groupOrderNo 
-From CustomBoard where (title like #{keyword} or content like #{keyword}) ) a where rn>=#{keyword} and rn<=#{keyword}
+		  OrderNo 
+From board where (title like #{keyword} or content like #{keyword}) ) a where rn>=#{page_start} and rn<=#{page_end}
 		]]>
 	</select>
 
+	<!-- 게시판 글쓰기 -->
+	<insert id="insert" parameterType="boardvo">
+		<![CDATA[
+	Insert Board(title,content,count,groupno,orderno,depth,regdate,UserId,username )
+	Values(#{title},#{content},0,(select isnull(max(groupno),0)+1 from board),1,1,(select getdate()),#{userid},#{username})
+		]]>
+		
+	<selectKey keyProperty="no" resultType="java.lang.Long" order="AFTER"> SELECT IDENT_CURRENT('board') </selectKey>
+		
+	</insert>
+	
+	<!-- 게시판 리스트 불러오기 -->
+	<select id="listByNo" parameterType="java.lang.Long" resultType="boardvo">
+		<![CDATA[
+		select no,title,content,count,groupno,depth,orderno,userid,username from board where no=#{no} 
+		]]>
+	</select>
+	
+	<!-- 게시판 첨부파일 -->
+		<insert id="insertAttachFile" parameterType="attachvo">
+		<![CDATA[
+		 Insert boardFile(no,path,orgName,savename,groupno,orderno,fileSize) Values(#{no},#{path},#{orgname},#{savename},#{groupno},#{orderno},#{filesize})
+		]]>
+	</insert>
+	
+	<!-- 게시판 보기[헤더] -->
+		<select id="boardinfo" parameterType="java.lang.Long" resultType="boardvo">
+		<![CDATA[
+		Select no,title,content,count,groupno,depth,orderno,userid,UserName,regdate From Board where no=#{no} 
+		]]>
+	</select>
+	
+	<!-- 게시판 보기[상세] -->
+		<select id="attachinfo" parameterType="java.lang.Long" resultType="attachvo">
+		<![CDATA[
+		Select fno,no,path,orgname,savename,filesize,url,groupno,orderno From BoardFile where no=#{no}  
+		]]>
+	</select>
+	
+		<!-- 게시판 보기[상세] -->
+		<update id="viewcountup" parameterType="java.lang.Long" >
+		<![CDATA[
+		Update Board Set count=count+1 where no=#{no}  
+		]]>
+	</update>
 
 </mapper>

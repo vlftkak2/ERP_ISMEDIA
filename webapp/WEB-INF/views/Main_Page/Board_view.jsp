@@ -16,19 +16,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-<script type="text/javascript">
-
-$(document).ready(function(){ var fileTarget = $('.board .ShowFileName'); 
-fileTarget.on('change', function(){ 
-	if(window.FileReader){ 
-		var filename =$(this)[0].files[0].name; 
-			} else { 
-			var filename = $(this).val().split('/').pop().split('\\').pop(); 
-			} 
-	$(this).siblings('.upload-name').val(filename); }); }); 
-
-</script>
-
 </head>
 <body>
 <div id="container">
@@ -58,7 +45,7 @@ fileTarget.on('change', function(){
 						
 						<table class="tbl-ex">
 							<tr>
-								<th colspan="2">글쓰기</th>
+								<th colspan="2">글보기</th>
 							</tr>
 							<tr>
 								<td class="label">제목</td>

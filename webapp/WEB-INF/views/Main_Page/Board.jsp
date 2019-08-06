@@ -73,28 +73,28 @@
 									<tr>
 									<c:choose>
 										<c:when test='${vo.depth == 1 }'>
-											<td><img src="/ISMEDIA/assets/images/board/que.PNG"></td>
+											<td align="center"><img src="/ISMEDIA/assets/images/board/que.png" ></td>
 										</c:when>
 										<c:otherwise>
-											<td><img src="/ISMEDIA/assets/images/board/an.PNG"></td>
+											<td align="center"><img src="/ISMEDIA/assets/images/board/an.png"></td>
 										</c:otherwise>
 									</c:choose>
 									
-									<td style="text-align:left; padding-left:${vo.depth*10}px">
+									<td style="text-align:center; padding-left:${vo.depth*10}px">
 										<c:if test='${vo.depth > 1 }'>
 											<img src="/ISMEDIA/assets/images/board/re2.png">
 										</c:if> 
 										<a href="/ISMEDIA/board/viewform?no=${vo.no}&&groupNo=${vo.groupNo}">${vo.title }</a>
 									</td>
 									
-										<td>${vo.name} </td>
-										<td>${vo.count }</td>
-										<td>${vo.regdate }</td>
+										<td align="center">${vo.username} </td>
+										<td align="center">${vo.count }</td>
+										<td align="center">${vo.regdate }</td>
 										
 								<td><c:choose>
 									<c:when
-									test='${(not empty authUser && authUser.no == vo.userNo) || (authUser.no==100)  }'>
-									<a href="/gs25/custom/delete?groupNo=${vo.groupNo}&&groupOrderNo=${vo.groupOrderNo }"
+									test='${(not empty authUser && authUser.id == vo.userid) || (authUser.id==147)  }'>
+									<a href="/ISMEDIA/board/delete?groupNo=${vo.groupNo}&&orderNo=${vo.orderNo }"
 									class="del">삭제</a>
 									</c:when>
 								<c:otherwise>
@@ -106,10 +106,10 @@
 								</c:forEach>
 							</table>
 
-							<c:if test="${empty longstock.list }">
+							<c:if test="${empty map.list }">
 								<div id="map_right">
 									<div id="map_risk">
-										<img src="/ISMEDIA/assets/images/longstock/risk.png">
+										<img src="/ISMEDIA/assets/images/board/risk.png">
 									</div>
 									<p class="map_list-right">
 										검색된 결과를 찾을 수 없습니다. <br>
@@ -118,40 +118,40 @@
 							</c:if>
 
 							<!-- begin:paging -->
-							<c:if test='${not empty longstock.list }'>
+							<c:if test='${not empty map.list }'>
 							<!-- begin:paging -->
 							<div class="pager">
 								<ul>
-									<c:if test="${longstock.prevtoPage >= 0 }">
-										<li><a href="/ISMEDIA/longstock/list?kwd=${longstock.keyword}&p=${longstock.prevtoPage }">◀◀</a></li>
+									<c:if test="${map.prevtoPage >= 0 }">
+										<li><a href="/ISMEDIA/board/list?kwd=${map.keyword}&p=${map.prevtoPage }">◀◀</a></li>
 									</c:if>
 
-									<c:if test="${longstock.prevPage >= 0 }">
-										<li><a href="/ISMEDIA/longstock/list?kwd=${longstock.keyword}&p=${longstock.prevPage }">◀</a></li>
+									<c:if test="${map.prevPage >= 0 }">
+										<li><a href="/ISMEDIA/board/list?kwd=${map.keyword}&p=${map.prevPage }">◀</a></li>
 									</c:if>
 
-									<c:forEach begin='${longstock.firstPage }' end='${longstock.lastPage }'
+									<c:forEach begin='${map.firstPage }' end='${map.lastPage }'
 										step='1' var='i'>
 										<c:choose>
-											<c:when test='${longstock.currentPage == i }'>
+											<c:when test='${map.currentPage == i }'>
 												<li class="selected">${i }</li>
 											</c:when>
 
-											<c:when test='${i > longstock.pageCount }'>
+											<c:when test='${i > map.pageCount }'>
 												<li>${i }</li>
 											</c:when>
 
 											<c:otherwise>
-												<li><a href="/ISMEDIA/longstock/list?kwd=${longstock.keyword}&p=${i }">${i }</a></li>
+												<li><a href="/ISMEDIA/board/list?kwd=${map.keyword}&p=${i }">${i }</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
 
-									<c:if test='${longstock.nextPage > 0 }'>
-										<li><a href="/ISMEDIA/longstock/list?kwd=${longstock.keyword}&p=${longstock.nextPage }">▶</a></li>
+									<c:if test='${map.nextPage > 0 }'>
+										<li><a href="/ISMEDIA/board/list?kwd=${map.keyword}&p=${map.nextPage }">▶</a></li>
 									</c:if>
-									<c:if test='${longstock.nexttoPage > 0 }'>
-										<li><a href="/ISMEDIA/longstock/list?kwd=${longstock.keyword}&p=${longstock.nexttoPage }">▶▶</a></li>
+									<c:if test='${map.nexttoPage > 0 }'>
+										<li><a href="/ISMEDIA/board/list?kwd=${map.keyword}&p=${map.nexttoPage }">▶▶</a></li>
 									</c:if>
 								</ul>
 							</div>

@@ -9,6 +9,7 @@
 	<typeAlias type="kr.ac.is.ISMEDIA.vo.BomVo" alias="bomvo"/>
 	<typeAlias type="kr.ac.is.ISMEDIA.vo.BomCsvVo" alias="bomcsvvo"/>
 	<typeAlias type="kr.ac.is.ISMEDIA.vo.BoardVo" alias="boardvo"/>
+	<typeAlias type="kr.ac.is.ISMEDIA.vo.AttachFileVo" alias="attachvo"/>
 	</typeAliases>
 	<mappers>
 	    	<mapper resource="mybatis/mappers/user.xml" />

@@ -1,5 +1,8 @@
 package kr.ac.is.ISMEDIA.controller;
 
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +21,7 @@ import org.supercsv.prefs.CsvPreference;
 
 import kr.ac.is.ISMEDIA.service.BomService;
 import kr.ac.is.ISMEDIA.vo.BomCsvVo;
+import kr.ac.is.ISMEDIA.vo.FileVersionVo;
 
 @Controller
 @RequestMapping("/bom")
@@ -73,6 +78,28 @@ public class BomController {
 			csvWriter.write(vo, header);
 		}
 		csvWriter.close();
+	}
+	
+	/* SVN다운로드 */
+	@RequestMapping(value = "/SVN", method = RequestMethod.GET)
+	public void downloadSVN(HttpServletResponse response) throws Exception {
+		
+		FileVersionVo filevo = bomservice.versionpath(); 
+
+		String filepath = filevo.getPath();
+		String filename = filevo.getFilename();
+		
+		response.setContentType("application/download");
+		response.setHeader("Content-disposition", "attachment; filename=\"" + URLEncoder.encode(filename,"UTF-8") +"\"");
+		OutputStream resOut = response.getOutputStream();
+		
+		FileInputStream fin = new FileInputStream(filepath);
+		FileCopyUtils.copy(fin, resOut);
+			
+		fin.close();
+		
+		
+		
 	}
 	
 	

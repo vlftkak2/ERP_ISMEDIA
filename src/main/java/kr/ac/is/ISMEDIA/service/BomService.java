@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.ac.is.ISMEDIA.dao.BomDao;
 import kr.ac.is.ISMEDIA.vo.BomCsvVo;
 import kr.ac.is.ISMEDIA.vo.BomVo;
+import kr.ac.is.ISMEDIA.vo.FileVersionVo;
 import kr.ac.is.ISMEDIA.vo.ProjectVo;
 
 @Service
@@ -122,6 +123,11 @@ public class BomService {
 		List<BomCsvVo> Csvlist = bomdao.Csvlist(pjtno,itemcd);
 		return Csvlist;
 		
+	}
+	public FileVersionVo versionpath() {
+
+		FileVersionVo filevo = bomdao.versionpath();
+		return filevo;
 	}
 
 }

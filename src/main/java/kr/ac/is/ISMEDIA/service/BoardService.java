@@ -115,9 +115,12 @@ public class BoardService {
 	}
 	
 	// 게시물 보기 [게시물 상세정보]
-	public List<AttachFileVo> attachinfo(Long no) {
+	public Map<String,Object> attachinfo(Long no) {
 		
-		List<AttachFileVo> attachfilevo = boarddao.attachinfo(no);
+		Map<String,Object> attachfilevo = new HashMap<String,Object>();
+		List<AttachFileVo> list = boarddao.attachinfo(no);
+		
+		attachfilevo.put("list", list);
 		return attachfilevo;
 	}
 	

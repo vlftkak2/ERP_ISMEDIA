@@ -7,6 +7,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<%
+	pageContext.setAttribute("newLine", "\n");
+%>
+
 <title>isMedia</title>
 <link rel="stylesheet" type="text/css" href="/ISMEDIA/assets/css/sweetalert.css">
 <link href="/ISMEDIA/assets/css/board.css" rel="stylesheet" type="text/css">
@@ -49,16 +54,20 @@
 							</tr>
 							<tr>
 								<td class="label">제목</td>
-								<td><input type="text" name="title" value=""></td>
+								<td>${vo.title }</td>
 							</tr>
 							<tr>
 								<td class="label">내용</td>
-								<td><textarea id="content" name="content"></textarea></td>
+								<td><div class="view-content">${fn:replace(vo.content, newLine, "<br>") }</div></td>
 							</tr>
+							
+							<c:forEach var="vo" items="${attachfilevo.list}" varStatus="status">
 							<tr>
 								<td class="label">첨부파일</td>
-								<td><input type="file" name="file" class="ShowFileName" multiple="multiple" >
+								<td>${vo.orgname }</td>
 							</tr>
+							</c:forEach>
+							
 						</table>
 
 						<div class="bottom">

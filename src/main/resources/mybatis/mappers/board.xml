@@ -92,5 +92,12 @@ From board where (title like #{keyword} or content like #{keyword}) ) a where rn
 		Update Board Set count=count+1 where no=#{no}  
 		]]>
 	</update>
+	
+	<!-- Bom Version 파일 다운로드 -->
+	<select id="versionpath" resultType="filevo">
+	<![CDATA[
+	Select filename,(path+'\'+filename+'.bas') path From tbl_version where menu='bom' and division like '최신'  
+	]]>
+	</select>
 
 </mapper>

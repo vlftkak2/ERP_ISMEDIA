@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.ac.is.ISMEDIA.service.BoardService;
-import kr.ac.is.ISMEDIA.vo.AttachFileVo;
 import kr.ac.is.ISMEDIA.vo.BoardVo;
 import kr.ac.is.ISMEDIA.vo.UserVo;
 
@@ -83,11 +82,14 @@ public class BoardController {
 		}
 		
 		BoardVo vo = boardservice.boardinfo(no);
-		List<AttachFileVo> attachfilevo = boardservice.attachinfo(no);
+		Map<String,Object> attachfilevo= boardservice.attachinfo(no);
 		
 		boardservice.viewcountup(no);
 		
-		return null;
+		model.addAttribute("vo", vo);
+		model.addAttribute("attachfilevo", attachfilevo);
+		
+		return "/Main_Page/Board_view";
 		
 	}
 	

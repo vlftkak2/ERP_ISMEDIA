@@ -29,7 +29,7 @@ Select * From
 (Select 기준월,월,품목계정,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Case when 일수>=365 Then convert(varchar(100),일수/365)+convert(varchar(100),'년 초과') Else convert(varchar(200),비고) End 비고상세,일수 From 
 (Select 기준월,월,품목계정,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Datediff(dd,a.비교월,a.비교기준월) 일수 From 
 (select convert(date,standard_date+'01') 비교기준월,convert(date,dates+'01') 비교월,standard_date 기준월,dates 월,codenm 품목계정,itemcd 품목코드,itemnm 품목명,size 규격,toqty 입고수량,toqty2 출고계,toqty3 출고,stock 재고,itemcdcount 품목수,seq 품목순번,unitprice 단가,amt 금액,remark 비고 from Last_TemporaryData where stock not like '0%' and standard_date like #{keyword}) A ) B ) C ) D
- where rn>=#{page_start} and rn<=#{page_end}
+where rn>=#{page_start} and rn<=#{page_end}
      ]]>  
    </select>
    
@@ -59,7 +59,8 @@ Select * From
 (Select 기준월,월,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Case when 일수>=365 Then convert(varchar(100),일수/365)+convert(varchar(100),'년 초과') Else convert(varchar(200),비고) End 비고상세,일수 From 
 (Select 기준월,월,품목코드,품목명,규격,입고수량,출고계,출고,재고,품목수,품목순번,단가,금액,비고,Datediff(dd,a.비교월,a.비교기준월) 일수 From 
 (select convert(date,standard_date+'01') 비교기준월,convert(date,dates+'01') 비교월,standard_date 기준월,dates 월,itemcd 품목코드,itemnm 품목명,size 규격,toqty 입고수량,toqty2 출고계,toqty3 출고,stock 재고,itemcdcount 품목수,seq 품목순번,unitprice 단가,amt 금액,remark 비고 from Last_TemporaryData where stock not like '0%' and standard_date like #{keyword}) A ) B ) C ) D
- where rn>=#{page_start} and rn<=#{page_end}
+where rn>=#{page_start} and rn<=#{page_end}
+ 
      ]]>  
    </select>  
    

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.ac.is.ISMEDIA.vo.AttachFileVo;
 import kr.ac.is.ISMEDIA.vo.BoardVo;
+import kr.ac.is.ISMEDIA.vo.FileVersionVo;
 
 @Repository
 public class BoardDao {
@@ -71,6 +72,7 @@ public class BoardDao {
 	
 	//게시물 보기 [상세]
 	public List<AttachFileVo> attachinfo(Long no) {
+		
 		List<AttachFileVo> attachfilevo = sqlSession.selectList("board.attachinfo", no);
 		return attachfilevo;
 	}

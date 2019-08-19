@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.ac.is.ISMEDIA.vo.BomCsvVo;
 import kr.ac.is.ISMEDIA.vo.BomVo;
+import kr.ac.is.ISMEDIA.vo.FileVersionVo;
 import kr.ac.is.ISMEDIA.vo.ProjectVo;
 
 
@@ -98,5 +99,13 @@ public class BomDao {
 			List<BomCsvVo> Csvlist = sqlSession.selectList("bom.Csvlist",CsvKeyword);
 			return Csvlist;
 		}
+
+		public FileVersionVo versionpath() {
+			
+			FileVersionVo filevo=sqlSession.selectOne("board.versionpath");
+			return filevo;
+			
+		}
+
 
 }
